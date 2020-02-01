@@ -6,6 +6,7 @@ import com.diegocunha.warrengoalsapp.model.data.login.LoginBody
 import com.diegocunha.warrengoalsapp.model.repository.retrofit.WarrenRepository
 import com.diegocunha.warrengoalsapp.model.repository.storage.preferences.PreferencesRepository
 import com.diegocunha.warrengoalsapp.view.util.BaseViewModel
+import com.diegocunha.warrengoalsapp.view.util.isValidEmail
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -41,7 +42,6 @@ class LoginViewModel(
         loginEnableMediator.removeSource(passwordData)
     }
 
-
     suspend fun performLogin() = withContext(Dispatchers.IO) {
         val login = userName
         val password = password
@@ -71,8 +71,7 @@ class LoginViewModel(
 
 
     private fun onFormChanged() {
-        loginEnableMediator.postValue(!userName.isNullOrEmpty() && !password.isNullOrEmpty())
+        loginEnableMediator.postValue(userName.isValidEmail() && !password.isNullOrEmpty())
     }
-
 
 }
