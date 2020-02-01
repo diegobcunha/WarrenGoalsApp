@@ -3,8 +3,10 @@ package com.diegocunha.warrengoalsapp.dependency
 
 import androidx.preference.PreferenceManager
 import com.diegocunha.warrengoalsapp.BuildConfig
+import com.diegocunha.warrengoalsapp.model.repository.retrofit.WarrenAPI
 import com.diegocunha.warrengoalsapp.model.repository.retrofit.WarrenRepository
 import com.diegocunha.warrengoalsapp.model.repository.storage.preferences.PreferencesRepository
+import com.diegocunha.warrengoalsapp.view.login.LoginViewModel
 import com.diegocunha.warrengoalsapp.view.splash.SplashViewModel
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -35,6 +37,11 @@ val appModule = module {
     factory { GsonBuilder().create() }
 
     factory {
+        val retrofit: Retrofit = get()
+        retrofit.create(WarrenAPI::class.java)
+    }
+
+    factory {
         Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(get()))
@@ -47,6 +54,8 @@ val appModule = module {
     single { WarrenRepository(get(), get()) }
 
     viewModel { SplashViewModel(get()) }
+
+    viewModel { LoginViewModel(get(), get()) }
 
 
 }

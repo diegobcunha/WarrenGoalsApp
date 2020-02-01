@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WarrenGoalsApp</string>
+    <string name="hint_username">E-mail</string>
+    <string name="hint_password">Password</string>
+    <string name="login">Login</string>
+    <string name="error_login">An error happened, please try again.</string>
 </resources>

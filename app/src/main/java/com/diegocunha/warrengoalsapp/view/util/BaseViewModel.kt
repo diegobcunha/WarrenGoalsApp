@@ -1,4 +1,4 @@
-package com.arctouch.codechallenge.view.util
+package com.diegocunha.warrengoalsapp.view.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
