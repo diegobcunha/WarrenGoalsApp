@@ -1,7 +1,8 @@
-package com.diegocunha.warrengoalsapp
+package com.diegocunha.warrengoalsapp.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.diegocunha.warrengoalsapp.R
 
 class MainActivity : AppCompatActivity() {
 
