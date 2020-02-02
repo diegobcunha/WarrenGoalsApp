@@ -2,8 +2,11 @@ package com.diegocunha.warrengoalsapp.repository.retrofit
 
 import android.content.SharedPreferences
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.diegocunha.warrengoalsapp.model.data.login.LoginResponse
+import com.diegocunha.warrengoalsapp.model.data.login.PortfolioResponse
 import com.diegocunha.warrengoalsapp.model.loginBody
 import com.diegocunha.warrengoalsapp.model.loginResponse
+import com.diegocunha.warrengoalsapp.model.portfolioResponse
 import com.diegocunha.warrengoalsapp.model.repository.retrofit.WarrenAPI
 import com.diegocunha.warrengoalsapp.model.repository.retrofit.WarrenRepository
 import com.diegocunha.warrengoalsapp.model.repository.storage.preferences.PreferencesRepository
@@ -61,17 +64,46 @@ class WarrenRepositoryTest {
 
     @Test
     fun `Should return an error at login`() = runBlocking {
-        Mockito.`when`(api.login(any())).thenReturn(
-            Response.error(
-                400, ResponseBody.create(
-                    MediaType.get("application/json"), "{error: wrong login or password}"
-                )
-            )
-        )
+        val responseError = Response.error<LoginResponse>(400, ResponseBody
+                .create(MediaType
+                        .get("application/json"),
+                        "{error: wrong login or password}"))
+        Mockito.`when`(api.login(any())).thenReturn(responseError)
         val preferencesRepository = PreferencesRepository(sharedPreferences)
         val repository = WarrenRepository(api, preferencesRepository)
         withContext(Dispatchers.IO) {
             val response = repository.login(loginBody)
+            Assert.assertFalse(response.isSuccessful)
+        }
+    }
+
+    @Test
+    fun `Should return a list of portfolios`() = runBlocking {
+        Mockito.`when`(api.getPortfolios(any())).thenReturn(Response.success(portfolioResponse))
+        Mockito.`when`(sharedPreferences.getString(any(), any())).thenReturn("accessToken")
+        val preferencesRepository = PreferencesRepository(sharedPreferences)
+        val repository = WarrenRepository(api, preferencesRepository)
+        withContext(Dispatchers.IO) {
+            val response = repository.getPortfolios()
+            Assert.assertEquals(response.body(), portfolioResponse)
+        }
+    }
+
+    @Test
+    fun `Should return an error at Portfolios`() = runBlocking {
+        val responseError = Response.error<PortfolioResponse>(400, ResponseBody
+                .create(MediaType
+                        .get("application/json"),
+                        "{error: error on request portfolios}"))
+
+        Mockito.`when`(api.getPortfolios(any())).thenReturn(responseError)
+        Mockito.`when`(sharedPreferences.getString(any(), any())).thenReturn("accessToken")
+
+        val preferencesRepository = PreferencesRepository(sharedPreferences)
+        val repository = WarrenRepository(api, preferencesRepository)
+
+        withContext(Dispatchers.IO) {
+            val response = repository.getPortfolios()
             Assert.assertFalse(response.isSuccessful)
         }
     }

@@ -6,6 +6,7 @@ import com.diegocunha.warrengoalsapp.BuildConfig
 import com.diegocunha.warrengoalsapp.model.repository.retrofit.WarrenAPI
 import com.diegocunha.warrengoalsapp.model.repository.retrofit.WarrenRepository
 import com.diegocunha.warrengoalsapp.model.repository.storage.preferences.PreferencesRepository
+import com.diegocunha.warrengoalsapp.view.home.HomeViewModel
 import com.diegocunha.warrengoalsapp.view.login.LoginViewModel
 import com.diegocunha.warrengoalsapp.view.splash.SplashViewModel
 import com.google.gson.GsonBuilder
@@ -56,6 +57,8 @@ val appModule = module {
     viewModel { SplashViewModel(get()) }
 
     viewModel { LoginViewModel(get(), get()) }
+
+    viewModel { HomeViewModel(get()) }
 
 
 }
