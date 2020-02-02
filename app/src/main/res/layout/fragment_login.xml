@@ -44,25 +44,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:backgroundTint="@android:color/white"
                         android:fontFamily="@font/lato_regular"
                         android:hint="@string/hint_username"
                         android:inputType="textWebEmailAddress"
                         android:text="@={viewModel.userNameData}"
                         android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/white" />
+                        android:textColorHint="@android:color/white"
+                        android:textCursorDrawable="@drawable/cursor_drawable" />
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/userPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
+                        android:backgroundTint="@android:color/white"
                         android:fontFamily="@font/lato_regular"
                         android:hint="@string/hint_password"
                         android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:text="@={viewModel.passwordData}"
                         android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/white" />
+                        android:textColorHint="@android:color/white"
+                        android:textCursorDrawable="@drawable/cursor_drawable" />
 
                 </LinearLayout>
 

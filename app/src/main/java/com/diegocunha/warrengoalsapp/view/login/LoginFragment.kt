@@ -16,6 +16,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class LoginFragment : BaseFragment() {
 
+    private val TAG = "LoginFragment"
+
     private val viewModel: LoginViewModel by viewModel()
 
     override fun onCreateView(
@@ -42,7 +44,7 @@ class LoginFragment : BaseFragment() {
             if (it) {
                 Snackbar.make(binding.container, R.string.error_login, Snackbar.LENGTH_SHORT).show()
             } else {
-                Log.e("LoginFragment", "Deu bom")
+                Log.d(TAG, "Move to next screen")
             }
         })
 
